@@ -7,7 +7,7 @@ SELECT
 FROM pizza_recipes AS pr
 JOIN pizza_names AS pn
   ON pr.pizza_id = pn.pizza_id
-CROSS JOIN LATERAL UNNEST(STRING_TO_ARRAY(pr.toppings, ',')) AS recipe_topping(topping_id)
+CROSS JOIN UNNEST(STRING_TO_ARRAY(pr.toppings, ',')) AS recipe_topping(topping_id)
 JOIN pizza_toppings AS pt
   ON pt.topping_id = BTRIM(recipe_topping.topping_id)::INTEGER
 GROUP BY pn.pizza_name
@@ -17,7 +17,7 @@ ORDER BY pn.pizza_name;
 WITH added_extras AS (
   SELECT BTRIM(extra_id) AS topping_id
   FROM customer_orders AS co
-  CROSS JOIN LATERAL UNNEST(
+  CROSS JOIN UNNEST(
     STRING_TO_ARRAY(
       NULLIF(NULLIF(LOWER(TRIM(co.extras)), ''), 'null'),
       ','
@@ -44,7 +44,7 @@ ORDER BY topping_name;
 WITH excluded_toppings AS (
   SELECT BTRIM(exclusion_id) AS topping_id
   FROM customer_orders AS co
-  CROSS JOIN LATERAL UNNEST(
+  CROSS JOIN UNNEST(
     STRING_TO_ARRAY(
       NULLIF(NULLIF(LOWER(TRIM(co.exclusions)), ''), 'null'),
       ','

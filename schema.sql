@@ -1,4 +1,4 @@
-CREATE SCHEMA pizza_runner;
+CREATE SCHEMA IF NOT EXISTS pizza_runner;
 SET search_path = pizza_runner;
 
 DROP TABLE IF EXISTS runners;
@@ -113,3 +113,11 @@ VALUES
   (10, 'Salami'),
   (11, 'Tomatoes'),
   (12, 'Tomato Sauce');
+
+SELECT
+    current_database() AS database_name,
+    current_schema() AS current_schema;
+
+SELECT table_schema, table_name
+FROM information_schema.tables
+WHERE table_name IN ('runners', 'customer_orders');
