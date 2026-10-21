@@ -1,21 +1,16 @@
 # Week 2: Pizza Runner 🍕
 
 ## 1. Business Context
-
-Pizza Runner is a pizza delivery business that combines a pizza restaurant with an on-demand delivery service. As the business grows, Danny needs to analyze operational data to understand customer demand, evaluate delivery performance, and optimize business operations.
-
-This project uses SQL to explore Pizza Runner's data and answer business questions related to sales, delivery efficiency, ingredient usage, and profitability.
+Pizza Runner is a pizza delivery business that combines a pizza restaurant with an on-demand delivery service. This project uses SQL to analyze sales, delivery performance, ingredient usage, and profitability to support business decisions.
 
 ## 2. Objectives
-
-- Analyze pizza orders and customer purchasing patterns.
-- Evaluate runner performance and delivery efficiency.
+- Analyze customer ordering patterns and pizza sales.
+- Evaluate delivery performance and runner efficiency.
 - Explore ingredient usage, exclusions, and extras.
-- Analyze revenue, costs, and profitability.
-- Practice data cleaning and SQL-based business analysis.
+- Estimate revenue, costs, and profitability.
+- Apply SQL techniques to solve business problems.
 
 ## 3. Dataset
-
 The dataset is provided by the [8 Week SQL Challenge – Case Study #2](https://8weeksqlchallenge.com/case-study-2/).
 
 | Table | Description |
@@ -27,66 +22,72 @@ The dataset is provided by the [8 Week SQL Challenge – Case Study #2](https://
 | `pizza_recipes` | Standard ingredients for each pizza |
 | `pizza_toppings` | Topping IDs and ingredient names |
 
-The raw data contains inconsistencies and missing values that require cleaning before analysis.
-
 ## 4. Tools
+PostgreSQL, VS Code, and pgAdmin.
 
-- PostgreSQL
-- VS Code
-- pgAdmin
-
-## 5. SQL Techniques
-
-- Data exploration and cleaning
-- Handling `NULL` values and inconsistent data
-- Aggregate functions: `COUNT`, `SUM`, `AVG`, `MIN`, `MAX`
-- Joins: `INNER JOIN`, `LEFT JOIN`
-- Common Table Expressions (CTEs)
-- Conditional logic using `CASE WHEN`
-- Date and time functions
-- String manipulation and data transformation
-- Business metric calculations
+## 5. Data Exploration & Cleaning
+- **Customer Orders:** Standardized `exclusions` and `extras`, handled missing values, and created `customer_orders_clean`.
+- **Runner Orders:** Converted `pickup_time` to `TIMESTAMP`, removed units from `distance` and `duration`, converted them into numeric values, handled missing values, and created `runner_orders_clean` while preserving the original data.
 
 ## 6. Case Study Sections
+- **A. Pizza Metrics:** Order volume, pizza preferences, customer ordering patterns, and ordering frequency.
+- **B. Runner and Customer Experience:** Preparation time, delivery distance and speed, runner performance, and successful delivery rates.
+- **C. Ingredient Optimisation:** Standard recipes, popular extras and exclusions, and ingredient requirements.
+- **D. Pricing and Ratings:** Revenue, delivery costs, pricing scenarios, and customer ratings.
+- **E. Bonus DML Challenges:** Data manipulation and schema changes.
 
-### A. Pizza Metrics
-Analyze order volume, pizza preferences, customer ordering patterns, and order frequency by time.
+## 7. SQL Techniques
 
-### B. Runner and Customer Experience
-Evaluate runner registrations, preparation and delivery times, delivery distances, average speed, and successful delivery rates.
+**Data Exploration & Cleaning**
+- Data profiling using `information_schema`
+- Missing value handling using `CASE WHEN`, `NULLIF()`, and `COALESCE()`
+- String cleaning using `TRIM()`, `LOWER()`, and `REGEXP_REPLACE()`
+- Data type conversion using `CAST()` and `::`
+- Table creation using `CREATE TABLE AS SELECT`
 
-### C. Ingredient Optimisation
-Explore standard pizza recipes, popular extras and exclusions, and ingredient requirements.
+**Data Retrieval & Transformation**
+- Filtering and sorting using `WHERE`, `ORDER BY`, and `DISTINCT`
+- Grouping and filtering aggregated results using `GROUP BY` and `HAVING`
+- Table joins using `INNER JOIN` and `LEFT JOIN`
+- Subqueries and Common Table Expressions (CTEs)
+- Date/time functions: `EXTRACT()`, `DATE_TRUNC()`, and timestamp subtraction
+- String and array functions: `STRING_AGG()`, `SPLIT_PART()`, and `UNNEST()`
 
-### D. Pricing and Ratings
-Estimate revenue and delivery costs, explore pricing scenarios, and incorporate customer ratings into the operational dataset.
+**Aggregation & Business Analysis**
+- Aggregate functions: `COUNT()`, `SUM()`, `AVG()`, `MIN()`, and `MAX()`
+- Conditional aggregation using `FILTER (WHERE ...)` and `SUM(CASE WHEN ... THEN ... END)`
+- Percentage and rate calculations using arithmetic operators and `ROUND()`
+- Revenue, cost, delivery performance, and success rate analysis
 
-### E. Bonus DML Challenges
-Practice data manipulation and schema changes to support new business requirements.
+**Advanced SQL**
+- Window functions: `ROW_NUMBER()`, `RANK()`, `DENSE_RANK()`, `SUM() OVER()`, and `AVG() OVER()`
+- Conditional logic using `CASE WHEN`
+- Ranking, cumulative calculations, and comparative analysis
 
-## 7. Repository Structure
+**Data Manipulation**
+- Data modification using `INSERT`, `UPDATE`, and `DELETE`
+- Schema modification using `ALTER TABLE`
 
+## 8. Repository Structure
 ```text
 case-02-pizza-runner/
 ├── README.md
 ├── schema.sql
-└── solutions.sql
+├── data_cleaning.sql
+├── solution_A.sql
+├── solution_B.sql
+├── solution_C.sql
+└── solution_D.sql
 ```
 
-- `schema.sql`: Creates the database tables and inserts the sample data.
-- `solutions.sql`: Contains SQL queries answering the case study questions.
-- `README.md`: Documents the business context, dataset, and analytical approach.
-
-## 8. How to Run
-
-1. Create a PostgreSQL database for the project.
-2. Execute `schema.sql` to create and populate the tables.
-3. Execute `solutions.sql` to run the analysis.
-4. Review the query results and validate the findings.
-
+- `schema.sql`: Creates and populates the source tables.
+- `data_cleaning.sql`: Profiles, cleans, and prepares data for analysis.
+- `solution_A.sql`: Solves business questions in Pizza Metrics.
+- `solution_B.sql`: Analyzes runner performance and customer experience.
+- `solution_C.sql`: Explores ingredient optimization.
+- `solution_D.sql`: Analyzes pricing and ratings.
+- `README.md`: Documents the business context, dataset, SQL techniques, and analytical approach.
 ## 9. Source
-
 Case Study #2 – Pizza Runner, created by Danny Ma as part of the [8 Week SQL Challenge](https://8weeksqlchallenge.com/case-study-2/).
 
 This repository contains my SQL practice and analysis based on the original case study.
-
